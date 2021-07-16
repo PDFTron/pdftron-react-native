@@ -436,6 +436,8 @@ static const PTAnnotationToolbarKey PTAnnotationToolbarKeyItems = @"items";
 
 - (void)importBookmarkJson:(NSString *)bookmarkJson;
 
+- (void)openBookmarkList;
+
 - (NSString *)getDocumentPath;
 
 - (NSString*)exportAsImage:(int)pageNumber dpi:(int)dpi imageFormat:(NSString*)imageFormat;
@@ -574,6 +576,14 @@ static const PTAnnotationToolbarKey PTAnnotationToolbarKeyItems = @"items";
 - (void)importAnnotationCommand:(NSString *)xfdfCommand initialLoad:(BOOL)initialLoad;
 
 - (void)setCurrentToolbar:(NSString *)toolbarTitle;
+
+- (void)openOutlineList;
+
+- (void)openLayersList;
+
+- (void)openLists;
+
+- (void)openAnnotationList;
 
 @end
 

@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-#pragma mark - Document Openining
+#pragma mark - Document Opening
 
 - (void)openDocument
 {
@@ -929,7 +929,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-#pragma mark - Bookmark import
+#pragma mark - Bookmark
 
 - (void)importBookmarkJson:(NSString *)bookmarkJson
 {
@@ -944,6 +944,15 @@ NS_ASSUME_NONNULL_END
     
     if (error) {
         NSLog(@"Error: There was an error while trying to import bookmark json. %@", error.localizedDescription);
+    }
+}
+
+-(void)openBookmarkList
+{
+    if (!self.documentViewController.bookmarkListHidden) {
+        PTNavigationListsViewController *navigationListsViewController = self.documentViewController.navigationListsViewController;
+        navigationListsViewController.selectedViewController = navigationListsViewController.bookmarkViewController;
+        [self.documentViewController presentViewController:navigationListsViewController animated:YES completion:nil];
     }
 }
 
@@ -3886,6 +3895,15 @@ NS_ASSUME_NONNULL_END
     return [annotations copy];
 }
 
+-(void)openAnnotationList
+{
+    if (!self.documentViewController.annotationListHidden) {
+        PTNavigationListsViewController *navigationListsViewController = self.documentViewController.navigationListsViewController;
+        navigationListsViewController.selectedViewController = navigationListsViewController.annotationViewController;
+        [self.documentViewController presentViewController:navigationListsViewController animated:YES completion:nil];
+    }
+}
+
 - (NSString *)getCustomDataForAnnotation:(NSString *)annotationId pageNumber:(NSInteger)pageNumber key:(NSString *)key
 {
     PTPDFViewCtrl *pdfViewCtrl = self.currentDocumentViewController.pdfViewCtrl;
@@ -4744,11 +4762,43 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - Online Settings
 
--(void)setRestictDownloadUsage:(BOOL)restrictDownloadUsage
+-(void)setRestrictDownloadUsage:(BOOL)restrictDownloadUsage
 {
     _restrictDownloadUsage = restrictDownloadUsage;
     
     [self applyViewerSettings];
+}
+
+#pragma mark - Outline
+
+-(void)openOutlineList
+{
+    if (!self.documentViewController.outlineListHidden) {
+        PTNavigationListsViewController *navigationListsViewController = self.documentViewController.navigationListsViewController;
+        navigationListsViewController.selectedViewController = navigationListsViewController.outlineViewController;
+        [self.documentViewController presentViewController:navigationListsViewController animated:YES completion:nil];
+    }
+}
+
+#pragma mark - Layers
+
+-(void)openLayersList
+{
+    if (!self.documentViewController.pdfLayerListHidden) {
+        PTNavigationListsViewController *navigationListsViewController = self.documentViewController.navigationListsViewController;
+        navigationListsViewController.selectedViewController = navigationListsViewController.pdfLayerViewController;
+        [self.documentViewController presentViewController:navigationListsViewController animated:YES completion:nil];
+    }
+}
+
+#pragma mark - Navigation List
+
+-(void)openLists
+{
+    PTNavigationListsViewController *navigationListsViewController = self.documentViewController.navigationListsViewController;
+    if (navigationListsViewController) {
+        [self.documentViewController showNavigationLists];
+    }
 }
 
 @end
